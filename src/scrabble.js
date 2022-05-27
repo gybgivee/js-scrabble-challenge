@@ -67,7 +67,11 @@ class Scrabble {
     const extraScoreSize = Math.floor(extraScoreArray.length / 2);
     console.log('extraScoreSize '+extraScoreSize);
     for (let i = 0; i < extraScoreSize;i++){
+      if(uniqueExtraScore[i]===undefined){
+        break;
+      }
       totalScore=parseInt(uniqueExtraScore[i])+totalScore;
+      console.log(i+' uniqueExtraScore '+uniqueExtraScore[i]);
     }
 
     console.log('totalScore : ' + totalScore);
@@ -79,6 +83,6 @@ class Scrabble {
 }
 let scrabble = new Scrabble("d0g");
 scrabble.score() // 
-let scrabble1 = new Scrabble("d{0}g");
+let scrabble1 = new Scrabble("d{{{0}}}g");
 scrabble1.score() // 
 module.exports = Scrabble
