@@ -5,6 +5,7 @@ class Scrabble {
   }
   score() {
     let scrabbleString = this.scrabbleString;
+    
     if (scrabbleString == null) {
       return 0;
     }
@@ -26,8 +27,7 @@ class Scrabble {
     let extraScoreArray = [];
 
     const size = scrabbleString.length;
-    const lastIndex = size - 1;
-    console.log(lastIndex);
+
     //If String is empty
     if (size === 0) {
       return 0;
@@ -56,20 +56,22 @@ class Scrabble {
     
     }
     //Check for Double or Triple Word
+    const lastIndex = size - 1;
+    console.log(lastIndex);
     if (scrabbleString[0] === '{' && scrabbleString[lastIndex] === '}') {
       totalScore = totalScore * 2;
     } else if (scrabbleString[0] === '[' && scrabbleString[lastIndex] === ']') {
       totalScore = totalScore * 3;
     }
     //check for Double and Triple Letter
-    const uniqueExtraScore = [...new Set(extraScoreArray)];
-    console.log('uniqueExtraScore '+uniqueExtraScore);
-    //const extraScoreSize = Math.floor(extraScoreArray.length / 2);
-    //console.log('extraScoreSize '+extraScoreSize);
-    for (let i = 0; i < uniqueExtraScore.length;i++){
-   
-      totalScore=parseInt(uniqueExtraScore[i])+totalScore;
-      console.log(i+' uniqueExtraScore '+uniqueExtraScore[i]);
+    //const uniqueExtraScore = [...new Set(extraScoreArray)];
+    //console.log('uniqueExtraScore '+uniqueExtraScore);
+    const extraScoreSize = Math.floor(extraScoreArray.length / 2);
+    console.log('extraScoreSize '+extraScoreSize);
+    for (let i = 0; i < extraScoreSize;i++){
+
+      totalScore=parseInt(extraScoreArray[i])+totalScore;
+      console.log(i+' uniqueExtraScore '+extraScoreArray[i]);
     }
 
     console.log('totalScore : ' + totalScore);
@@ -77,10 +79,9 @@ class Scrabble {
     return totalScore;
   }
 
-
 }
 let scrabble = new Scrabble("d0g");
 scrabble.score() // 
-let scrabble1 = new Scrabble("d{{0}}g");
+let scrabble1 = new Scrabble("d{{0}]}g");
 scrabble1.score() // 
 module.exports = Scrabble
