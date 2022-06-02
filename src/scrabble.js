@@ -25,7 +25,7 @@ class Scrabble {
     let totalScore = 0;
     let key = 0;
     let extraScoreArray = [];
-
+    let checkClosing=true;
     const size = scrabbleString.length;
 
     //If String is empty
@@ -49,9 +49,13 @@ class Scrabble {
         }
     
       });
-      if (scrabbleString[i] === '{' || scrabbleString[i] === '}'||scrabbleString[i] === '[' || scrabbleString[i] === ']') {
+      if (scrabbleString[i] === '{' || scrabbleString[i] === '}'&&checkClosing===true) {
         console.log('key :'+key);
+        checkClosing=true;
         extraScoreArray.push(key);
+      }
+      if(scrabbleString[i] === '[' || scrabbleString[i] === ']'&&checkClosing===false) {
+       checkClosing=false;
       }
     
     }
@@ -82,6 +86,6 @@ class Scrabble {
 }
 let scrabble = new Scrabble("d0g");
 scrabble.score() // 
-let scrabble1 = new Scrabble("d{{0}]}g");
+let scrabble1 = new Scrabble("d{0]g");
 scrabble1.score() // 
 module.exports = Scrabble
