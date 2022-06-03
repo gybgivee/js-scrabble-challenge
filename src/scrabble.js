@@ -25,7 +25,7 @@ class Scrabble {
     let totalScore = 0;
     let key = 0;
     let extraScoreArray = [];
-    let checkClosing=true;
+    let checkClosing_1=true,checkClosing_2=true;
     const size = scrabbleString.length;
 
     //If String is empty
@@ -49,14 +49,24 @@ class Scrabble {
         }
     
       });
-      if (scrabbleString[i] === '{' || scrabbleString[i] === '}'&&checkClosing===true) {
+      if (scrabbleString[i] === '{'&&checkClosing_1===true) {
         console.log('key :'+key);
-        checkClosing=true;
+          checkClosing_1=false;
+      }else if(scrabbleString[i] === '}'&&checkClosing_1===false){
+           
+        checkClosing_1=true;
         extraScoreArray.push(key);
       }
-      if(scrabbleString[i] === '[' || scrabbleString[i] === ']'&&checkClosing===false) {
-       checkClosing=false;
+      if (scrabbleString[i] === '['&&checkClosing_2===true) {
+        console.log('key :'+key);
+          checkClosing_2=false;
+
+      }else if(scrabbleString[i] === ']'&&checkClosing_2===false){
+           
+        checkClosing_2=true;
+        extraScoreArray.push(key);
       }
+     
     
     }
     //Check for Double or Triple Word
@@ -70,13 +80,13 @@ class Scrabble {
     //check for Double and Triple Letter
     //const uniqueExtraScore = [...new Set(extraScoreArray)];
     //console.log('uniqueExtraScore '+uniqueExtraScore);
-    const extraScoreSize = Math.floor(extraScoreArray.length / 2);
-    console.log('extraScoreSize '+extraScoreSize);
-    for (let i = 0; i < extraScoreSize;i++){
-
-      totalScore=parseInt(extraScoreArray[i])+totalScore;
-      console.log(i+' uniqueExtraScore '+extraScoreArray[i]);
-    }
+   
+    const extraScore = extraScoreArray.reduce(function (sum, score) {
+      console.log('sum'+sum);
+      return sum=sum+parseInt(score);
+    },0);
+    console.log('extraScore'+extraScore);
+      totalScore=extraScore+totalScore;
 
     console.log('totalScore : ' + totalScore);
 
@@ -86,6 +96,6 @@ class Scrabble {
 }
 let scrabble = new Scrabble("d0g");
 scrabble.score() // 
-let scrabble1 = new Scrabble("d{0]g");
+let scrabble1 = new Scrabble("d{[0}]g");
 scrabble1.score() // 
 module.exports = Scrabble
